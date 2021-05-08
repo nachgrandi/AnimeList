@@ -1,0 +1,26 @@
+<div>
+  <div class="header-page d-flex">
+    <breadcrumb [titleParam]="title"></breadcrumb>
+    <button class="" (click)="create()">Agregar Anime</button>
+  </div>
+  <table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Anime</th>
+        <th scope="col">Fecha inicio</th>
+        <th scope="col">Fecha final</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let anime of animeList">
+      <tr>
+        <td>{{anime.title}}</td>
+        <td>{{anime.startYear}}</td>
+        <td>{{anime.endYear}}</td>
+        <td>
+          <button (click)="edit(anime.id)">Editar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

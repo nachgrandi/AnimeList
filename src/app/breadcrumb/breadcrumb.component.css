@@ -1,0 +1,7 @@
+.class-header_breadcrumb{
+    height: 25px;
+    display: flex;
+    padding: 10px;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
