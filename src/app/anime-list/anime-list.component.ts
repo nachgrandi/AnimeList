@@ -21,7 +21,7 @@ export class AnimeListComponent implements OnInit {
   }
 
   edit(id: number) {
-    this.router.navigate([`modify/id=${id}`])
+    this.router.navigate([`modify/${id}`])
   }
 
   create(){

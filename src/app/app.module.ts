@@ -10,6 +10,8 @@ import { AnimeListComponent } from './anime-list/anime-list.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { AddAnimeComponent } from './add-anime/add-anime.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, 
+    ReactiveFormsModule, 
+    BrowserAnimationsModule, 
+    DatePickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

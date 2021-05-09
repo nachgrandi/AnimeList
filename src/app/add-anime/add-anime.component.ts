@@ -27,16 +27,19 @@ export class AddAnimeComponent implements OnInit {
      }
 
   ngOnInit(): void {
+    let fecha = new Date()
+    console.log("fecha", fecha)
     this.activatedRoute.params.subscribe(
       params => {
         this.animeId= params['id'];
-        console.log('anime', this.animeId)
+        this.animeId =+ this.animeId
         if(isNaN(this.animeId)){
           this.title="Modificar";
           return;
         }
         else{
           let anime = this.AnimeSrv.getAnimeById(this.animeId); 
+          console.log('anime', anime )
           if (anime) {
             this.title= "Crear";
             this.formAnime.patchValue({

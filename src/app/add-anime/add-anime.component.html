@@ -1,1 +1,47 @@
-<p>add-anime works!</p>
+<div class="header-page d-flex">
+  <breadcrumb [titleParam]="title"></breadcrumb>
+</div>
+
+<div class="d-flex justify-content-center">
+
+  <div class="card col-md-8 ">
+    <div class="card-body">
+      <form [formGroup]="formAnime" (ngSubmit)="saveForm()" class="form-horizontal">
+        <fieldset>
+          <div class="form-group">
+            <label for="nombre" class="col-md-2-control-label">Titulo</label>
+            <div class="col-md-8">
+              <input class="form-control" 
+                id="nombre"
+                type="text"
+                formControlName="title"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nombre" class="col-md-2-control-label">Fecha inicio emision</label>
+            <div class="col-md-8">
+              <input class="form-control" 
+                    id="fecha"
+                    type="date" 
+                    formControlName="startDate"
+                />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nombre" class="col-md-2-control-label">Fecha fin emision</label>
+            <div class="col-md-8">
+              <input class="form-control" 
+                    id="fechaFin"
+                    type="date" 
+                    formControlName="endDate"
+                />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" >Guardar</button>
+          <button [routerLink]="['list']" class="btn btn-outline-dark" >Cancelar</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
