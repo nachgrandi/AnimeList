@@ -35,6 +35,7 @@ export class AnimeService {
   }
 
   createAnime(anime: Anime){
+    anime.id = this.AnimeList[this.AnimeList.length -1].id + 1
     this.AnimeList.push(anime)
   }
 
@@ -51,7 +52,6 @@ export class AnimeService {
       return -1
     }
     let animeSerch = this.AnimeList.find(x => x.title.toUpperCase().includes(name.toUpperCase()))
-    console.log(animeSerch)
     let id = -1;
     if (animeSerch){
       id = animeSerch.id
