@@ -1,0 +1,17 @@
+<div class="card card-anime text-dark">
+  <div class="card-header">
+    {{anime.title | uppercase}}
+  </div>
+  <div class="card-body">
+    <p>
+      {{anime.description}}
+    </p>
+  </div>
+  <div class="card-footer">
+    <span 
+      [ngClass]="anime.endYear === '' ? 'badge badge-success':'badge badge-secondary' "
+    >
+      {{anime.endYear === '' ? 'En emision': 'Finalizado'}}
+    </span>
+  </div>
+</div>

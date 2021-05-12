@@ -20,6 +20,6 @@ box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 .nav-link{
     margin-left: 15px;
 }
-.margin-left{
-    float: right;
+.input-search{
+    width: 300px;
 }

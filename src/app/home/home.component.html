@@ -1,1 +1,7 @@
-<p>home works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6" *ngFor="let anime of animeList">
+      <app-card-anime [anime]="anime"></app-card-anime>
+    </div>
+  </div>
+</div>

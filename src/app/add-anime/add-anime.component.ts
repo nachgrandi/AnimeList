@@ -10,9 +10,13 @@ import { AnimeService } from '../services/animeService';
   styleUrls: ['./add-anime.component.css']
 })
 export class AddAnimeComponent implements OnInit {
-  formAnime:FormGroup;
-  animeId:number = 0;
-  title:string = '';
+  public formAnime:FormGroup;
+  public animeId:number = 0;
+  public title:string = '';
+  public isInvalid = {
+    title:false,
+    startYear:false,
+  }
 
   constructor(private fb: FormBuilder,
     private activatedRoute:ActivatedRoute,
@@ -21,31 +25,30 @@ export class AddAnimeComponent implements OnInit {
     ) {
       this.formAnime=this.fb.group({
         title:'',
-        startDate:'',
-        endDate:'',
+        description: '',
+        startYear:'',
+        endYear:'',
       });
      }
 
   ngOnInit(): void {
-    let fecha = new Date()
-    console.log("fecha", fecha)
     this.activatedRoute.params.subscribe(
       params => {
         this.animeId= params['id'];
         this.animeId =+ this.animeId
         if(isNaN(this.animeId)){
-          this.title="Modificar";
+          this.title="Crear";
           return;
         }
         else{
           let anime = this.AnimeSrv.getAnimeById(this.animeId); 
-          console.log('anime', anime )
           if (anime) {
-            this.title= "Crear";
+            this.title= "Modificar";
             this.formAnime.patchValue({
               title:anime.title,
-              startDate: anime.startYear,
-              endDate: anime.endYear,
+              description: anime.description,
+              startYear: anime.startYear,
+              endYear: anime.endYear,
             });
           }
         }
@@ -54,16 +57,43 @@ export class AddAnimeComponent implements OnInit {
   }
 
   saveForm(){
-    
     let anime: Anime = Object.assign({},this.formAnime.value);
     anime.id =+ this.animeId; 
+    if (this.validate(anime)) {
+      if(anime.id>0){
+        this.AnimeSrv.updateAnime(anime);
+      }
+      else{
+        this.AnimeSrv.createAnime(anime);
+      }
+      this.router.navigate(["/list"])
+    }
+  }
 
-    if(anime.id>0){
-      this.AnimeSrv.updateAnime(anime);
+  delete(){
+    this.AnimeSrv.deleteAnime(this.animeId)
+    this.router.navigate(["/list"])
+  }
+
+  back(){
+    this.router.navigate(["/list"])
+  }
+
+  validate(anime:Anime){
+    let valid = true;
+    if (anime.title === '') {
+      this.isInvalid.title = true
+      valid = false
+    }else{
+      this.isInvalid.title = false
     }
-    else{
-      this.AnimeSrv.createAnime(anime);
+    if (anime.startYear === '') {
+      this.isInvalid.startYear = true
+      valid = false
+    }else{
+      this.isInvalid.startYear = false
     }
-    this.router.navigate(["/alumnos"])
+
+    return valid
   }
 }

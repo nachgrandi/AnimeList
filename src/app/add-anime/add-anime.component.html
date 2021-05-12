@@ -1,45 +1,56 @@
-<div class="header-page d-flex">
+<div class="header-page d-flex mb-5 mt-4">
   <breadcrumb [titleParam]="title"></breadcrumb>
+  <button class="btn btn-primary ml-md-auto" (click)="back()">Regresar</button>
 </div>
-
 <div class="d-flex justify-content-center">
-
   <div class="card col-md-8 ">
-    <div class="card-body">
+    <div class="card-body text-dark">
       <form [formGroup]="formAnime" (ngSubmit)="saveForm()" class="form-horizontal">
         <fieldset>
-          <div class="form-group">
-            <label for="nombre" class="col-md-2-control-label">Titulo</label>
-            <div class="col-md-8">
+          <div class="form-group justify-content-center">
+            <label for="nombre" class="col-md-12-control-label">Titulo</label>
+            <div class="col-md-12">
               <input class="form-control" 
+                [ngClass]="isInvalid.title ? 'is-invalid' : ''"
                 id="nombre"
                 type="text"
                 formControlName="title"
               />
             </div>
+            <label *ngIf="isInvalid.title === true" for="nombre" class="col-md-12-control-label" [ngStyle]="{'color': isInvalid.title ? 'red':'' }">Debe ingresar un titulo!</label>
           </div>
-          <div class="form-group">
-            <label for="nombre" class="col-md-2-control-label">Fecha inicio emision</label>
-            <div class="col-md-8">
+          <div class="form-group justify-content-center">
+            <label for="nombre" class="col-md-12-control-label">Resumen</label>
+            <div class="col-md-12">
+              <textarea class="form-control" name="description" id="" cols="30" rows="10" formControlName="description"></textarea>
+            </div>
+          </div>
+          <div class="form-group justify-content-center">
+            <label for="nombre" class="col-md-12-control-label">Inicio emision</label>
+            <div class="col-md-12">
               <input class="form-control" 
                     id="fecha"
+                    [ngClass]="isInvalid.startYear ? 'is-invalid' : ''"
                     type="date" 
-                    formControlName="startDate"
+                    formControlName="startYear"
                 />
+                <label *ngIf="isInvalid.startYear === true" for="nombre" class="col-md-12-control-label" [ngStyle]="{'color': isInvalid.startYear ? 'red':'' }">Debe ingresar un titulo!</label>
             </div>
           </div>
           <div class="form-group">
-            <label for="nombre" class="col-md-2-control-label">Fecha fin emision</label>
-            <div class="col-md-8">
+            <label for="nombre" class="col-md-12-control-label">Fin emision</label>
+            <div class="col-md-12">
               <input class="form-control" 
                     id="fechaFin"
                     type="date" 
-                    formControlName="endDate"
+                    formControlName="endYear"
                 />
             </div>
           </div>
-          <button type="submit" class="btn btn-primary" >Guardar</button>
-          <button [routerLink]="['list']" class="btn btn-outline-dark" >Cancelar</button>
+          <div class="card-footer d-flex justify-content-center pl-2">
+            <button type="submit" class="btn btn-outline-primary mr-4" >Guardar</button>
+            <button (click)="delete()" type="button" class="btn btn-outline-danger ml-4" >Eliminar</button>
+          </div>
         </fieldset>
       </form>
     </div>

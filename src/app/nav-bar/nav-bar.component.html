@@ -1,6 +1,6 @@
 <div>
   <nav class="navbar navbar-light bg-light border-bottom box-shadow mb-3">
-    <div class="flex-column flex-md-row">
+    <div class="container flex-column flex-md-row">
       <div class="d-sm-inline-flex">
         <a class="navbar-brand" [routerLink]="['/']">OtakuList</a>
         <ul class="navbar-nav flex-grow" *ngFor="let item of menu">
@@ -10,9 +10,9 @@
         </ul>
       </div>
       <div class="flex-row ml-md-auto d-none d-md-flex">
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Escriba el anime que desea buscar" aria-label="Search">
-          <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar</button>
+        <form class="form-inline my-2 my-lg-0" [formGroup]="formNav">
+          <input class="form-control mr-sm-2 input-search" type="search" placeholder="Escriba el anime que desea buscar" aria-label="Search" formControlName="name">
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="findByName()">Buscar</button>
         </form>
       </div>
     </div>

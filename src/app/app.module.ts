@@ -12,6 +12,7 @@ import { AddAnimeComponent } from './add-anime/add-anime.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { CardAnimeComponent } from './card-anime/card-anime.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
     HomeComponent,
     AnimeListComponent,
     BreadcrumbComponent,
-    AddAnimeComponent
+    AddAnimeComponent,
+    CardAnimeComponent
   ],
   imports: [
     BrowserModule,
