@@ -23,3 +23,17 @@ box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 .input-search{
     width: 300px;
 }
+
+.grid-search{
+    float: left;
+    z-index: 3;
+    width: 25%;
+    position: absolute;
+}
+.ul-search{
+    width: 25%;
+}
+
+li {
+    list-style:none;
+}

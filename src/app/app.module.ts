@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { CardAnimeComponent } from './card-anime/card-anime.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AnimeCardSearchComponent } from './anime-card-search/anime-card-search.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { CardAnimeComponent } from './card-anime/card-anime.component';
     AnimeListComponent,
     BreadcrumbComponent,
     AddAnimeComponent,
-    CardAnimeComponent
+    CardAnimeComponent,
+    AnimeCardSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -31,9 +34,12 @@ import { CardAnimeComponent } from './card-anime/card-anime.component';
     FormsModule, 
     ReactiveFormsModule, 
     BrowserAnimationsModule, 
-    DatePickerModule
+    DatePickerModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    HttpClientModule,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Anime } from '../models/anime';
 import { AnimeService } from '../services/animeService';
 
@@ -8,11 +9,12 @@ import { AnimeService } from '../services/animeService';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  public animeList: Anime[];
+  public animeList$ : Observable<any> =  new Observable<any>();
   constructor(
-    private animeSrv: AnimeService
+    private animeService: AnimeService
   ) { 
-    this.animeList = this.animeSrv.getAnimeList()
+    this.animeList$ = this.animeService.animeList$;
+    animeService.getAnimeList();
   }
 
   ngOnInit(): void { }

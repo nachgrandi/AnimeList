@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Anime } from '../models/anime'
+import { Observable } from 'rxjs';
 import { AnimeService } from '../services/animeService';
 
 @Component({
@@ -9,7 +9,7 @@ import { AnimeService } from '../services/animeService';
   styleUrls: ['./anime-list.component.css']
 })
 export class AnimeListComponent implements OnInit {
-  public animeList : Anime[] = [];
+  public animeList$ : Observable<any> =  new Observable<any>();
   public title = 'Lista de animes'
   constructor(
     private animeService : AnimeService,
@@ -17,12 +17,16 @@ export class AnimeListComponent implements OnInit {
   ) {  }
 
   ngOnInit(): void {
-    this.animeList = this.animeService.getAnimeList();
+    this.animeList$ = this.animeService.animeList$;
+    this.animeService.getAnimeList();
   }
 
   edit(id: number) {
-    console.log(id)
     this.router.navigate([`modify/${id}`])
+  }
+
+  sort(type: string){
+    type ? this.animeService.getAnimeListSort(type) : this.animeService.getAnimeListSort('')
   }
 
   create(){

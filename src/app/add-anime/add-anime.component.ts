@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder,FormGroup} from '@angular/forms';
+import {FormBuilder,FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute,Router} from '@angular/router';
+import { Observable } from 'rxjs';
 import { Anime } from '../models/anime';
 import { AnimeService } from '../services/animeService';
 
@@ -17,6 +18,9 @@ export class AddAnimeComponent implements OnInit {
     title:false,
     startYear:false,
   }
+  public anime$ : Observable<any> =  new Observable<any>();
+  public deleteAnime$ : Observable<any> =  new Observable<any>();
+  public createUpdateAnime$ : Observable<any> =  new Observable<any>();
 
   constructor(private fb: FormBuilder,
     private activatedRoute:ActivatedRoute,
@@ -24,33 +28,36 @@ export class AddAnimeComponent implements OnInit {
     private AnimeSrv: AnimeService
     ) {
       this.formAnime=this.fb.group({
-        title:'',
-        description: '',
-        startYear:'',
-        endYear:'',
+        title:['',  [Validators.required,Validators.minLength(3), Validators.maxLength(100)]],
+        descripcion: ['',  [Validators.required]],
+        startYear:[null,  [Validators.required]],
+        endYear:null,
       });
      }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(
-      params => {
+     async (params) => {
         this.animeId= params['id'];
         this.animeId =+ this.animeId
         if(isNaN(this.animeId)){
           this.title="Crear";
+          this.animeId=0;
           return;
-        }
-        else{
-          let anime = this.AnimeSrv.getAnimeById(this.animeId); 
-          if (anime) {
+        }else{
+          this.anime$ = this.AnimeSrv.anime$
+          this.anime$.subscribe((x) => {
             this.title= "Modificar";
+            let endYear = null
+            if (x[0].endYear) endYear = x[0].endYear.slice(0,10);
             this.formAnime.patchValue({
-              title:anime.title,
-              description: anime.description,
-              startYear: anime.startYear,
-              endYear: anime.endYear,
+              title:x[0].title,
+              descripcion: x[0].descripcion,
+              startYear: x[0].startYear.slice(0,10),
+              endYear: endYear,
             });
-          }
+          })
+          this.AnimeSrv.getAnimeById(this.animeId);
         }
       }
     );
@@ -59,20 +66,25 @@ export class AddAnimeComponent implements OnInit {
   saveForm(){
     let anime: Anime = Object.assign({},this.formAnime.value);
     anime.id =+ this.animeId; 
-    if (this.validate(anime)) {
-      if(anime.id>0){
-        this.AnimeSrv.updateAnime(anime);
-      }
-      else{
-        this.AnimeSrv.createAnime(anime);
+    this.createUpdateAnime$ = this.AnimeSrv.createUpdateAnime$;
+    this.AnimeSrv.updateAnime(anime);
+    this.createUpdateAnime$.subscribe((x) => {
+      if (x.status !== 200) {
+        alert("Error creando/modificando el anime")
       }
       this.router.navigate(["/list"])
-    }
+    })
   }
 
   delete(){
+    this.deleteAnime$ = this.AnimeSrv.deleteAnime$;
     this.AnimeSrv.deleteAnime(this.animeId)
-    this.router.navigate(["/list"])
+    this.deleteAnime$.subscribe((x) => {
+      if (x.status !== 200) {
+        alert("Error eliminando el anime")
+      }
+      this.router.navigate(["/list"])
+    })
   }
 
   back(){
@@ -87,7 +99,7 @@ export class AddAnimeComponent implements OnInit {
     }else{
       this.isInvalid.title = false
     }
-    if (anime.startYear === '') {
+    if (!anime.startYear) {
       this.isInvalid.startYear = true
       valid = false
     }else{

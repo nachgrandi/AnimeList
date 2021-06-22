@@ -4,14 +4,14 @@
   </div>
   <div class="card-body">
     <p>
-      {{anime.description}}
+      {{anime.descripcion}}
     </p>
   </div>
   <div class="card-footer">
     <span 
-      [ngClass]="anime.endYear === '' ? 'badge badge-success':'badge badge-secondary' "
+      [ngClass]="anime.endYear ? 'badge badge-secondary' : 'badge badge-success'"
     >
-      {{anime.endYear === '' ? 'En emision': 'Finalizado'}}
+      {{anime.endYear ? 'Finalizado' : 'En emision'}}
     </span>
   </div>
 </div>

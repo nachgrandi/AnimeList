@@ -16,20 +16,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-color: #8064A2;
 }
 
-.btn-outline-primary:hover{
-    background-color: #8064A2;
-    border-color: #8064A2;
-}
-
-.btn-outline-primary:focus,
-.btn-outline-primary:active,
-.btn-outline-primary:visited{
-    background-color: #8064A2;
-    border-color: #8064A2;
-    color: white;
-}
-
 .btn-outline-primary {
     color: #8064A2;
     border-color: #8064A2;
 }
+
+.btn-outline-primary:disabled,
+.btn-outline-primary:disabled:hover{
+    color: lightgray;
+    border-color: lightgray;
+}
+
+.btn-outline-primary:hover:enabled{
+    background-color: #8064A2;
+    border-color: #8064A2;
+}
+
+

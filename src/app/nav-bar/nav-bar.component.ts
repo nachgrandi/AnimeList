@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AnimeService } from '../services/animeService';
 
 @Component({
@@ -9,6 +10,7 @@ import { AnimeService } from '../services/animeService';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
+  public animeListByTitle$ : Observable<any> =  new Observable<any>();
   public menu = [
     {
       title: 'Inicio',
@@ -20,28 +22,30 @@ export class NavBarComponent implements OnInit {
     }
   ]
   formNav:FormGroup;
+
   constructor(
     private animeService : AnimeService,
-    private router: Router,
     private fb: FormBuilder
   ) { 
     this.formNav=this.fb.group({
       name:'',
     });
+    this.animeListByTitle$ = animeService.animeListByTitle$;
   }
 
   ngOnInit(): void {
-    this.formNav.patchValue({
-      name: '',
-    });
+    this.clean()
   }
 
   findByName(){
-    let name = Object.assign({},this.formNav.value);
-    let id = this.animeService.getIdByName(name.name);
-    if (id > -1) {
-      console.log(id)
-      this.router.navigate([`modify/${id}`])
-    }
+    let title = Object.assign({},this.formNav.value);
+    this.animeService.getByTitle(title.name)
+  }
+
+  clean(){
+    this.formNav.patchValue({
+      name: '',
+    });
+    this.animeService.getByTitle('')
   }
 }

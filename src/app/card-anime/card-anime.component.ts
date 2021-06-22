@@ -9,7 +9,9 @@ import { Anime } from '../models/anime';
 })
 export class CardAnimeComponent implements OnInit {
   @Input() anime : any;
-  constructor() { }
+  constructor() { 
+    
+  }
 
   ngOnInit(): void {
   }
