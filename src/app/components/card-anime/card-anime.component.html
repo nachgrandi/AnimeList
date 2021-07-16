@@ -1,0 +1,18 @@
+
+<div class="card card-anime text-light" style="width: 18rem;">
+  <div class="badge-active">
+    <span [ngClass]="anime.endYear ? 'badge badge-secondary' : 'badge badge-danger'" >
+      {{anime.endYear ? 'Finalizado' : 'En emision'}}
+    </span>
+  </div>
+  <div *ngIf="anime.imageLink">
+    <img [src]="anime.imageLink" class="card-img-top">
+  </div>
+  <div *ngIf="!anime.imageLink">
+    <img src="../../assets/noimage.png" class="card-img-top">
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{anime.title | uppercase}}</h5>
+    <p class="card-text">{{anime.descripcion}}</p>
+  </div>
+</div>

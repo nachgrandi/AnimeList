@@ -1,0 +1,37 @@
+<div>
+  <nav class="navbar navbar-light bg-light border-bottom box-shadow mb-3 d-flex">
+    <div class="nav-container">
+      <div class="nav-items-left d-sm-inline-flex ">
+        <a>
+          <img class="navbar-brand" (click)="clean()" [routerLink]="['/']" src="../../assets/logo.png">
+        </a>
+        <ul class="navbar-nav flex-grow" *ngFor="let item of menu">
+          <li class="nav-item" (click)="clean()" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-nav" [routerLink]=item.route>{{item.title}}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="nav-items-right">
+        <form class="form-inline my-2 my-lg-0" [formGroup]="formNav">
+          <ul class="mt-3">
+            <li class="row">
+              <input class="form-control mr-sm-2 input-search" (keyup)="findByName()" type="search" placeholder="Escriba el anime que desea buscar" aria-label="Search" formControlName="name">
+              <ng-template #notLogin>
+                <app-modal-create-user class="mr-2"></app-modal-create-user>
+                <app-modal-login></app-modal-login>
+              </ng-template>
+              <div *ngIf="userLogged, else notLogin">
+                <button class="btn btn-primary" (click)="logout()">Desloguearse</button>
+              </div>
+            </li>
+            <div class="grid-search" *ngIf="animeListByTitle$ | async as animeListByTitle">
+              <li *ngFor="let anime of animeListByTitle">
+                <app-anime-card-search (warnClick)="clean()" [anime]="anime"></app-anime-card-search>
+              </li>
+            </div>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </nav>
+</div>

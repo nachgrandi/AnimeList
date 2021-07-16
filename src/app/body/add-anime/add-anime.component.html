@@ -1,0 +1,89 @@
+<div class="container">
+
+  <div class="header-page d-flex mb-5 mt-4">
+    <breadcrumb [titleParam]="title"></breadcrumb>
+    <button class="btn btn-primary ml-md-auto" (click)="back()">Regresar</button>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class="card col-md-8 ">
+      <div class="card-body text-dark">
+        <form [formGroup]="formAnime" (ngSubmit)="saveForm()" class="form-horizontal">
+          <fieldset>
+            <div class="form-group justify-content-center">
+              <label for="title" class="col-md-12-control-label">Titulo</label>
+              <div class="col-md-12">
+                <input type="text" id="name" class="form-control"
+                formControlName="title" required>
+                
+                <div *ngIf="formAnime.controls.title.invalid && (formAnime.controls.title.dirty || formAnime.controls.title.touched)"
+                  class="alert alert-danger">
+                  
+                  <div *ngIf="formAnime.controls.title.errors?.required">
+                    El titulo es requerido.
+                  </div>
+                  <div *ngIf="formAnime.controls.title.errors?.minlength">
+                    El titulo tiene que tener minimo 3 caracteres.
+                  </div>
+                  <div *ngIf="formAnime.controls.title.errors?.maxlength">
+                    El titulo tiene que tener maximo 100 caracteres.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group justify-content-center">
+              <label for="description" class="col-md-12-control-label">Resumen</label>
+              <div class="col-md-12">
+                <textarea class="form-control" name="descripcion" id="" cols="30" rows="10" formControlName="descripcion" required></textarea>
+                
+                <div *ngIf="formAnime.controls.descripcion.invalid && (formAnime.controls.descripcion.dirty || formAnime.controls.descripcion.touched)"
+                  class="alert alert-danger">
+                  <div *ngIf="formAnime.controls.descripcion.errors?.required">
+                    La descripcion es requerida.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group justify-content-center">
+              <label for="description" class="col-md-12-control-label">Link Imagen</label>
+              <div class="col-md-12">
+                <input type="text" id="image" class="form-control"
+                formControlName="imageLink" >
+              </div>
+            </div>
+            <div class="form-group justify-content-center">
+              <label for="nombre" class="col-md-12-control-label">Inicio emision</label>
+              <div class="col-md-12">
+                <input class="form-control" 
+                  id="fecha"
+                  [ngClass]="isInvalid.startYear ? 'is-invalid' : ''"
+                  type="date" 
+                  formControlName="startYear"
+                />
+                <div *ngIf="formAnime.controls.startYear.invalid && (formAnime.controls.startYear.dirty || formAnime.controls.startYear.touched)"
+                  class="alert alert-danger">
+                  <div *ngIf="formAnime.controls.startYear.errors?.required">
+                    La fecha de inicio es requerida.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="nombre" class="col-md-12-control-label">Fin emision</label>
+              <div class="col-md-12">
+                <input class="form-control" 
+                      id="fechaFin"
+                      type="date" 
+                      formControlName="endYear"
+                  />
+              </div>
+            </div>
+            <div class="card-footer d-flex justify-content-center text-center pl-2">
+              <button type="submit" [disabled]="!formAnime.valid" class="btn btn-outline-primary mr-4" >Guardar</button>
+              <button *ngIf="title=='Modificar'" (click)="delete()" type="button" class="btn btn-outline-danger ml-4" >Eliminar</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

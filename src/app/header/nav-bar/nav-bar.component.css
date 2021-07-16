@@ -1,0 +1,60 @@
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+html {
+    font-size: 14px;
+}
+@media (min-width: 768px) {
+html {
+    font-size: 16px;
+}
+}
+
+.box-shadow {
+box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.nav-link{
+    margin-left: 15px;
+}
+.input-search{
+    width: 300px;
+}
+
+.grid-search{
+    float: left;
+    z-index: 3;
+    width: 25%;
+    position: absolute;
+}
+.ul-search{
+    width: 25%;
+}
+
+li {
+    list-style:none;
+}
+
+.nav-container{
+    width: 100%;
+}
+
+.nav-items-right{
+    float:right;
+    margin-right: 3%;
+}
+
+.nav-items-left{
+    float:left;
+    margin-right: 3%;
+    display: flex;
+    padding-top: 15px;
+}
+
+.text-nav{
+    color: rgb(106, 15, 144) !important;
+    font-size: 20px;
+}

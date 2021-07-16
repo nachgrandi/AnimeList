@@ -1,0 +1,12 @@
+.card-anime{
+    margin-bottom: 30px;
+    margin-left: 40px;
+    -webkit-border-radius: 0px;
+    background-color: black;
+}
+
+.badge-active{
+    position: absolute;
+    top: 7px;
+    left: 7px;
+}

@@ -1,0 +1,16 @@
+
+<div class="card card-anime text-dark card-search" (click)="click()">
+    <div  class="row card-content">
+        <div class="prev-image">
+            <div class="img-prev" *ngIf="anime.imageLink">
+                <img [src]="anime.imageLink" class="card-img-top">
+            </div>
+            <div class="img-prev" *ngIf="!anime.imageLink">
+                <img src="../../assets/noimage.png" class="card-img-top">
+            </div>
+        </div>
+        <p class="prev-text">
+            {{anime.title}}
+        </p>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div>
+  <div class="row" *ngIf="animeList$ | async as animeList">
+    <div class="row img-promotion">
+      <app-img-promotion class="img-promotion"></app-img-promotion>
+    </div>
+    <div class="row mt-5">
+      <div class="" *ngFor="let anime of animeList">
+        <app-card-anime [anime]="anime"></app-card-anime>
+      </div>
+    </div>
+  </div>
+  
+</div>

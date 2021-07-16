@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { AnimeListComponent } from './anime-list/anime-list.component';
-import { AddAnimeComponent } from './add-anime/add-anime.component';
+import { HomeComponent } from './body/home/home.component';
+import { AnimeListComponent } from './body/anime-list/anime-list.component';
+import { AddAnimeComponent } from './body/add-anime/add-anime.component';
+import { GuardPageService } from './services/pageGuardService';
+import { UnauthorizedComponent } from './body/unauthorized/unauthorized.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'list', component: AnimeListComponent },
-  { path: 'add', component: AddAnimeComponent },
-  { path: 'modify/:id', component: AddAnimeComponent },
+  { path: 'list', component: AnimeListComponent, canActivate: [GuardPageService] },
+  { path: 'add', component: AddAnimeComponent, canActivate: [GuardPageService] },
+  { path: 'modify/:id', component: AddAnimeComponent, canActivate: [GuardPageService] },
+  { path: 'unauthorized', component: UnauthorizedComponent },
 ];
 
 @NgModule({

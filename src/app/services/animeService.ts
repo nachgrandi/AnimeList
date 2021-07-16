@@ -19,6 +19,9 @@ export class AnimeService {
   private animeListByTitleS: Subject<any> = new Subject();
   public animeListByTitle$ = this.animeListByTitleS.pipe(distinctUntilChanged());
 
+  private errorS: Subject<any> = new Subject();
+  public error$ = this.errorS.pipe(distinctUntilChanged());
+
   constructor(private http: HttpClient) { }
 
   getApiUrl(){
@@ -31,6 +34,9 @@ export class AnimeService {
         if (response.status === 200) {
           this.setAnimeList(response.body);
         }
+      },
+      err => {
+        this.setError(this.getErrorByCode(err.status))
       });
   }
 
@@ -41,6 +47,9 @@ export class AnimeService {
         if (response.status === 200) {
           this.setAnimeList(response.body);
         }
+      },
+      err => {
+        this.setError(this.getErrorByCode(err.status))
       });
   }
 
@@ -54,6 +63,9 @@ export class AnimeService {
         if (response.status === 200) {
           this.setAnime(response.body);
         }
+      },
+      err => {
+        this.setError(this.getErrorByCode(err.status))
       });
   }
 
@@ -66,6 +78,9 @@ export class AnimeService {
     this.http.post(`${this.getApiUrl()}/animelist/Anime`, body, {observe: 'response'})
       .subscribe(response => {
         this.setCreateUpdate(response);
+      },
+      err => {
+        this.setError(this.getErrorByCode(err.status))
       });
   }
 
@@ -77,6 +92,9 @@ export class AnimeService {
     this.http.delete(`${this.getApiUrl()}/animelist/Anime/${id}`, {observe: 'response'})
       .subscribe(response => {
         this.setDeleteAnime(response)
+      },
+      err => {
+        this.setError(this.getErrorByCode(err.status))
       });
   }
 
@@ -89,6 +107,9 @@ export class AnimeService {
       this.http.get(`${this.getApiUrl()}/animelist/Anime/title/${title}`, {observe: 'response'})
         .subscribe(response => {
           this.setAnimeByTitle(response.body)
+        },
+        err => {
+          this.setError(this.getErrorByCode(err.status))
         });
     } else {
       this.setAnimeByTitle([])
@@ -97,5 +118,41 @@ export class AnimeService {
 
   setAnimeByTitle(data: Object | null){
     this.animeListByTitleS.next(data);
+  }
+
+  setError(data: Object | null){
+    this.errorS.next(data);
+  }
+
+  getErrorByCode(error: Number){
+    let retError = null;
+    switch (error) {
+      case 0:
+        retError = {
+          code:error,
+          message: "Servicio momentaneamente caido."
+        }
+        break;
+      case 500:
+        retError = {
+          code:error,
+          message: "Ups, hubo un error! intentalo nuevamente"
+        }
+        break;
+      case 400:
+        retError = {
+          code:error,
+          message: "No encontramos lo que buscas!"
+        }
+        break;
+      default:
+        retError = {
+          code:error,
+          message: "Ocurrio un error inesperado. Intente mas tarde"
+        }
+        break;
+    }
+
+    return retError
   }
 }

@@ -1,0 +1,7 @@
+<ngb-carousel *ngIf="promotions">
+    <ng-template ngbSlide *ngFor="let promotion of promotions" >
+      <div class="picsum-img-wrapper">
+        <img [src]="promotion.img" alt="Random first slide">
+      </div>
+    </ng-template>
+</ngb-carousel>

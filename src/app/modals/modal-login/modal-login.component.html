@@ -1,0 +1,54 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="title">
+      <h2 class="text-center">Inicia sesion</h2>
+    </div>
+    <div class="separator"></div>
+    <div class="body">
+      <form [formGroup]="formLogin" class="login-form ml-5 mr-5" (ngSubmit)="login()">
+        <div class="row mb-4">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="user">
+            <mat-error *ngIf="formLogin.controls.user.errors?.minlength">
+              Ingrese un usuario de mas de 3 caracteres
+            </mat-error>
+            <mat-error *ngIf="formLogin.controls.user.errors?.maxlength">
+              Ingrese un usuario de menos de 15 caracteres
+            </mat-error>
+            <mat-error *ngIf="formLogin.controls.user.errors?.required">
+              El campo usuario es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row mb-4">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="password" type="password">
+            <mat-error *ngIf="formLogin.controls.password.errors?.minlength">
+              Ingrese una contraseña de mas de 3 caracteres
+            </mat-error>
+            <mat-error *ngIf="formLogin.controls.password.errors?.maxlength">
+              Ingrese una contraseña de menos de 15 caracteres
+            </mat-error>
+            <mat-error *ngIf="formLogin.controls.password.errors?.required">
+              El campo contraseña es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row justify-content-center" *ngIf="error$ | async as error">
+          <ngb-alert type="danger" [dismissible]="false">{{ error.message }}</ngb-alert>
+        </div>
+        <div class="row d-flex  justify-content-center">
+          <button type="submit" [disabled]="!formLogin.valid" class="btn btn-primary mr-4" >Login</button>
+        </div>
+      </form>
+    </div>
+    
+  </div>
+</ng-template>
+
+<button class="btn btn-outline-primary" (click)="open(content)">Login</button>
