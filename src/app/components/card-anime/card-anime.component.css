@@ -10,3 +10,10 @@
     top: 7px;
     left: 7px;
 }
+
+.card-img-top{
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+    max-height: 145px;
+}

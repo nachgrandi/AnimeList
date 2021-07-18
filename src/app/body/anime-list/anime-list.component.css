@@ -1,3 +1,7 @@
 .sort:hover{
     background-color: darkgray;
 }
+
+.tabla{
+    max-height: 400px;
+}

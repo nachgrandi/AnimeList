@@ -145,6 +145,12 @@ export class AnimeService {
           message: "No encontramos lo que buscas!"
         }
         break;
+      case 401:
+        retError = {
+          code:error,
+          message: "Error con la autorizacion"
+        }
+        break;
       default:
         retError = {
           code:error,

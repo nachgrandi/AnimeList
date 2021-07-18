@@ -4,7 +4,7 @@
     <button class="btn btn-primary ml-md-auto" (click)="create()">Agregar Anime</button>
   </div>
   <div *ngIf="animeList$ | async as animeList">
-    <table class="table table-hover table-dark">
+    <table class="table table-hover table-dark tabla">
       <thead>
         <tr>
           <th class="sort" scope="col" (click)="sort('title')">Anime</th>
@@ -13,7 +13,7 @@
           <th scope="col">Accion</th>
         </tr>
       </thead>
-      <tbody *ngFor="let anime of animeList">
+      <tbody class="tabla" *ngFor="let anime of animeList">
         <tr>
           <td>{{anime.title | uppercase}}</td>
           <td>{{anime.startYear | slice:0:10}}</td>
